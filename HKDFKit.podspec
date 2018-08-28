@@ -19,4 +19,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'HKDFKit/HKDFKit/*.h'
   s.requires_arc = true
 
+  s.dependency 'CocoaLumberjack'
 end
