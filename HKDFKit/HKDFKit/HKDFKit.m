@@ -7,7 +7,7 @@
 //
 
 #import "HKDFKit.h"
-#import "HKAsserts.h"
+#import "SHKAsserts.h"
 #import <CommonCrypto/CommonCrypto.h>
 
 NS_ASSUME_NONNULL_BEGIN
