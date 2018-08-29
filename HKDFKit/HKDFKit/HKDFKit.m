@@ -105,6 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
             OWSFail(@"Could not allocate buffer.");
         }
         CCHmacFinal(&ctx, stepResultData.mutableBytes);
+        NSUInteger newLength;
+        ows_add_overflow(results.length, stepResultData.length, &newLength);
         [results appendData:stepResultData];
         mixin = [stepResultData copy];
     }
