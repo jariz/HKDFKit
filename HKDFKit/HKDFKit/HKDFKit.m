@@ -88,7 +88,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSData *mixin = [NSData data];
     NSMutableData *results = [NSMutableData data];
 
-    for (int i = offset; i < (iterations + offset); i++) {
+    int offsetIterations;
+    ows_add_overflow(iterations, offset, &offsetIterations);
+
+    for (int i = offset; i < offsetIterations; i++) {
         CCHmacContext ctx;
         CCHmacInit(&ctx, HKDF_HASH_ALG, [data bytes], [data length]);
         CCHmacUpdate(&ctx, [mixin bytes], [mixin length]);
