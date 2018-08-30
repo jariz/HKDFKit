@@ -167,4 +167,10 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         OWSAssert(!_didOverflow);                                                                                      \
     } while (NO)
 
+#define ows_mul_overflow(a, b, resultRef)                                                                              \
+    do {                                                                                                               \
+        BOOL _didOverflow = __builtin_mul_overflow(a, b, resultRef);                                                   \
+        OWSAssert(!_didOverflow);                                                                                      \
+    } while (NO)
+
 NS_ASSUME_NONNULL_END

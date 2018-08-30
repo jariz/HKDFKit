@@ -88,6 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSData *mixin = [NSData data];
     NSMutableData *results = [NSMutableData data];
 
+    NSUInteger generatedLength;
+    ows_mul_overflow(HKDF_HASH_LEN, iterations, &generatedLength);
+
     int offsetIterations;
     ows_add_overflow(iterations, offset, &offsetIterations);
 
@@ -105,11 +108,10 @@ NS_ASSUME_NONNULL_BEGIN
             OWSFail(@"Could not allocate buffer.");
         }
         CCHmacFinal(&ctx, stepResultData.mutableBytes);
-        NSUInteger newLength;
-        ows_add_overflow(results.length, stepResultData.length, &newLength);
         [results appendData:stepResultData];
         mixin = [stepResultData copy];
     }
+    OWSAssert(results.length == generatedLength);
 
     return [results subdataWithRange:NSMakeRange(0, outputSize)];
 }
