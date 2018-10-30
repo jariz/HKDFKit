@@ -1,14 +1,9 @@
 //
-//  HKDFKitTests.m
-//  HKDFKitTests
-//
-//  Created by Frederic Jacobs on 29/03/14.
-//  Copyright (c) 2014 Frederic Jacobs. All rights reserved.
+//  Copyright (c) 2018 Open Whisper Systems. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
 #import "HKDFKit.h"
-
+#import <XCTest/XCTest.h>
 
 @interface HKDFKitTests : XCTestCase
 
@@ -29,9 +24,12 @@
     int l           = 42;
     
     NSString *OKM  = @"3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865";
-    
-    NSData *hkdf = [HKDFKit deriveKey:[self stringToData:IKM] info:[self stringToData:info] salt:[self stringToData:salt] outputSize:l];
-    
+
+    NSData *hkdf = [HKDFKit throws_deriveKey:[self stringToData:IKM]
+                                        info:[self stringToData:info]
+                                        salt:[self stringToData:salt]
+                                  outputSize:l];
+
     XCTAssert([hkdf isEqualToData:[self stringToData:OKM]], @"Basic test case with SHA-256");
     
 }
@@ -44,9 +42,12 @@
     int l = 82;
     
     NSString *OKM = @"b11e398dc80327a1c8e7f78c596a49344f012eda2d4efad8a050cc4c19afa97c59045a99cac7827271cb41c65e590e09da3275600c2f09b8367793a9aca3db71cc30c58179ec3e87c14c01d5c1f3434f1d87";
-    
-    NSData *hkdf = [HKDFKit deriveKey:[self stringToData:IKM] info:[self stringToData:info] salt:[self stringToData:salt] outputSize:l];
-    
+
+    NSData *hkdf = [HKDFKit throws_deriveKey:[self stringToData:IKM]
+                                        info:[self stringToData:info]
+                                        salt:[self stringToData:salt]
+                                  outputSize:l];
+
     XCTAssert(([hkdf isEqualToData:[self stringToData:OKM]]), @"Test with SHA-256 and longer inputs/outputs");
     
 }
@@ -59,9 +60,9 @@
     int l           = 42;
     
     NSString *OKM  = @"8da4e775a563c18f715f802a063c5a31b8a11f5c5ee1879ec3454e5f3c738d2d9d201395faa4b61a96c8";
-    
-    NSData *hkdf = [HKDFKit deriveKey:[self stringToData:IKM] info:info salt:salt outputSize:l];
-    
+
+    NSData *hkdf = [HKDFKit throws_deriveKey:[self stringToData:IKM] info:info salt:salt outputSize:l];
+
     XCTAssert(([hkdf isEqualToData:[self stringToData:OKM]]), @"Test with SHA-256 and zero-length salt/info");
     
 }
