@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files  = 'HKDFKit/HKDFKit/*.{h,m,mm,swift}', 'HKDFKit/Private/*.{h,m,mm,swift}'
 
   s.public_header_files = 'HKDFKit/HKDFKit/*.h'
-  s.ios.deployment_target = "9.0"
+  s.ios.deployment_target = "10.0"
   s.requires_arc = true
 
   s.dependency 'CocoaLumberjack'
